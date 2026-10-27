@@ -5,28 +5,28 @@
   "test_days_window": 30,
   "benchmarks": {
     "Naive Persistence": {
-      "wmape_pct": 20.12,
-      "mae_inr_qtl": 560.63,
-      "rmse_inr_qtl": 675.22,
+      "wmape_pct": 20.38,
+      "mae_inr_qtl": 579.77,
+      "rmse_inr_qtl": 694.42,
       "mda_directional_acc_pct": 36.67
     },
     "SARIMAX (Baseline)": {
-      "wmape_pct": 23.55,
-      "mae_inr_qtl": 656.06,
-      "rmse_inr_qtl": 748.13,
-      "mda_directional_acc_pct": 46.67
+      "wmape_pct": 29.07,
+      "mae_inr_qtl": 827.14,
+      "rmse_inr_qtl": 867.28,
+      "mda_directional_acc_pct": 43.33
     },
     "XGBoost (Multi-Quantile)": {
-      "wmape_pct": 9.42,
-      "mae_inr_qtl": 280.9,
-      "rmse_inr_qtl": 374.8,
-      "mda_directional_acc_pct": 80.0
+      "wmape_pct": 6.32,
+      "mae_inr_qtl": 189.24,
+      "rmse_inr_qtl": 275.62,
+      "mda_directional_acc_pct": 66.67
     },
     "Bi-LSTM + Temporal Attention": {
-      "wmape_pct": 7.97,
-      "mae_inr_qtl": 221.99,
-      "rmse_inr_qtl": 291.84,
-      "mda_directional_acc_pct": 80.0
+      "wmape_pct": 7.33,
+      "mae_inr_qtl": 208.59,
+      "rmse_inr_qtl": 267.02,
+      "mda_directional_acc_pct": 86.67
     }
   }
 }

@@ -1,18 +1,67 @@
+# Byte-compiled / optimized files
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.pytest_cache/
-.env
-venv/
+
+# Environments & Packaging
 .venv/
+venv/
 env/
 ENV/
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+
+# Large ML Model Binaries & Artifacts
+saved_models/
+models_store/
+*.pkl
+*.joblib
+*.pt
+*.pth
+*.onnx
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+agriprice.db
+
+# Data directories (keep reference data, ignore raw & processed & generated)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/sample_mandi_prices.csv
+data/sample_weather.csv
+data/*.parquet
+
+# Testing & Linting
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Logs & System Generated
 *.log
 .system_generated/
+
+# Reports generated artifacts
+reports/*.png
+reports/*.pdf
+
+# IDEs & OS Files
 .idea/
 .vscode/
-
-*.db
-*.pkl
-saved_models/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

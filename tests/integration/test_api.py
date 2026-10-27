@@ -2,9 +2,10 @@
 Integration Tests for AgriPrice-AI FastAPI Endpoints.
 Uses TestClient to validate responses, schemas, and error boundaries.
 """
+
 import pytest
 from fastapi.testclient import TestClient
-from api.main import app
+from agriprice.api.main import app
 
 client = TestClient(app)
 
@@ -15,6 +16,14 @@ def test_health_check():
     data = response.json()
     assert data["status"] == "healthy"
     assert "version" in data
+
+
+def test_list_states():
+    response = client.get("/v1/states")
+    assert response.status_code == 200
+    data = response.json()
+    assert "states" in data
+    assert "Maharashtra" in data["states"]
 
 
 def test_list_commodities():
@@ -43,8 +52,8 @@ def test_get_price_forecast():
     assert "7d" in data["forecasts"]
     assert "15d" in data["forecasts"]
     assert "30d" in data["forecasts"]
-    
-    # Check quantile order
+    assert "data_source" in data
+
     f_7d = data["forecasts"]["7d"]
     assert f_7d["predicted_p10"] <= f_7d["predicted_p50"] <= f_7d["predicted_p90"]
     assert "advisory_recommendation" in data
@@ -107,7 +116,7 @@ def test_scenario_simulation():
     data = response.json()
     assert "baseline_forecast_15d" in data
     assert "simulated_forecast_15d" in data
-    assert data["impact_pct"] > 0 # Rain shock increases price
+    assert data["impact_pct"] > 0
     assert "recommended_action" in data
 
 

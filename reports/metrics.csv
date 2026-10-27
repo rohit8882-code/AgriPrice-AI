@@ -1,0 +1,5 @@
+model_name,wmape_pct,mae_inr_qtl,rmse_inr_qtl,mda_directional_acc_pct
+Naive Persistence,20.38,579.77,694.42,36.67
+SARIMAX (Baseline),29.07,827.14,867.28,43.33
+XGBoost (Multi-Quantile),6.32,189.24,275.62,66.67
+Bi-LSTM + Temporal Attention,7.33,208.59,267.02,86.67
