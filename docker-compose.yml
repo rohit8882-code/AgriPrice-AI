@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # 1. TimescaleDB (PostgreSQL 16 with time-series hypertable support)
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: agriprice-timescaledb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: agriprice
+    ports:
+      - "5432:5432"
+    volumes:
+      - timescaledb_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 2. Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: agriprice-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  # 3. FastAPI Prediction Service
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agriprice-api
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgrespassword@timescaledb:5432/agriprice
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+  # 4. Streamlit Interactive Dashboard
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agriprice-dashboard
+    command: streamlit run dashboard/app.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000
+    depends_on:
+      - api
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+volumes:
+  timescaledb_data:

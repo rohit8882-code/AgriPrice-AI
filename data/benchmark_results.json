@@ -1,0 +1,32 @@
+{
+  "commodity": "Onion",
+  "mandi_name": "Lasalgaon (Nashik, MH)",
+  "test_horizon_days": 15,
+  "test_days_window": 30,
+  "benchmarks": {
+    "Naive Persistence": {
+      "wmape_pct": 20.12,
+      "mae_inr_qtl": 560.63,
+      "rmse_inr_qtl": 675.22,
+      "mda_directional_acc_pct": 36.67
+    },
+    "SARIMAX (Baseline)": {
+      "wmape_pct": 23.55,
+      "mae_inr_qtl": 656.06,
+      "rmse_inr_qtl": 748.13,
+      "mda_directional_acc_pct": 46.67
+    },
+    "XGBoost (Multi-Quantile)": {
+      "wmape_pct": 9.42,
+      "mae_inr_qtl": 280.9,
+      "rmse_inr_qtl": 374.8,
+      "mda_directional_acc_pct": 80.0
+    },
+    "Bi-LSTM + Temporal Attention": {
+      "wmape_pct": 7.97,
+      "mae_inr_qtl": 221.99,
+      "rmse_inr_qtl": 291.84,
+      "mda_directional_acc_pct": 80.0
+    }
+  }
+}

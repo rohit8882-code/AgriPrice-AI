@@ -1,0 +1,10 @@
+.git
+.github
+tests/
+.pytest_cache/
+Dockerfile
+docker-compose.yml
+dashboard/
+*.log
+.system_generated/
+*.db
